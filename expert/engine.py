@@ -48,6 +48,14 @@ class LaptopPurchaseExpertSystem:
                 self.value["excellent"]
             ),
             ctrl.Rule(
+                self.price["low"] & self.quality["medium"],
+                self.value["good"]
+            ),
+            ctrl.Rule(
+                self.price["medium"] & self.quality["low"],
+                self.value["average"]
+            ),
+            ctrl.Rule(
                 self.price["medium"] & self.quality["high"],
                 self.value["good"]
             ),
@@ -60,9 +68,30 @@ class LaptopPurchaseExpertSystem:
                 self.value["poor"]
             ),
             ctrl.Rule(
+                self.price["high"] & self.quality["medium"],
+                self.value["average"]
+            ),
+            ctrl.Rule(
                 self.usage["intensive"] & self.quality["low"],
                 self.value["poor"]
-            )
+            ),
+            ctrl.Rule(
+                self.usage["intensive"] & self.quality["high"],
+                self.value["excellent"]
+            ),
+            ctrl.Rule(
+                self.usage["intensive"] & self.quality["medium"],
+                self.value["average"]
+            ),
+            ctrl.Rule(
+                self.usage["regular"] & self.quality["medium"],
+                self.value["good"]
+            ),
+            # fallback
+            ctrl.Rule(
+                self.price["medium"] | self.quality["medium"] | self.usage["regular"],
+                self.value["average"]
+            ),
         ]
 
     def evaluate(self, price: int, quality: int, usage: int) -> dict:
