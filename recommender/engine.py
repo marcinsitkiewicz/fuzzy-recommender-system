@@ -87,3 +87,13 @@ class FuzzyRecommenderEngine:
             return 0.0
 
         return float(self.simulator.output["product_match"])
+    
+    def linguistic_label(self, score: float) -> str:
+        if score < 40:
+            return "słaba rekomendacja"
+        elif score < 60:
+            return "umiarkowana rekomendacja"
+        elif score < 80:
+            return "dobra rekomendacja"
+        else:
+            return "bardzo dobra rekomendacja"

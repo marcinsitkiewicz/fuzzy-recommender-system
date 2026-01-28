@@ -22,4 +22,5 @@ results.sort(key=lambda x: x[1], reverse=True)
 
 print("Ranking rekomendowanych produktów:\n")
 for name, score in results:
-    print(f"{name}: {score}%")
+    label = engine.linguistic_label(score)
+    print(f"{name}: {score}% - {label}")
