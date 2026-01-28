@@ -37,9 +37,9 @@ class LaptopPurchaseExpertSystem:
 
         # Opłacalność
         self.value["poor"] = fuzz.trapmf(self.value.universe, [0, 0, 30, 45])
-        self.value["average"] = fuzz.trimf(self.value.universe, [40, 55, 70])
-        self.value["good"] = fuzz.trimf(self.value.universe, [65, 75, 85])
-        self.value["excellent"] = fuzz.trapmf(self.value.universe, [85, 92, 100, 100])
+        self.value["average"] = fuzz.trimf(self.value.universe, [40, 53, 65])
+        self.value["good"] = fuzz.trimf(self.value.universe, [60, 73, 85])
+        self.value["excellent"] = fuzz.trapmf(self.value.universe, [80, 89, 100, 100])
 
     def _define_rules(self):
         self.rules = [
