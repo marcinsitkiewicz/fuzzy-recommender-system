@@ -15,11 +15,7 @@ user_preferences = {
 results = []
 
 for product in PRODUCTS:
-    score = engine.evaluate(
-        budget=user_preferences["budget"],
-        quality=user_preferences["quality"],
-        usage=user_preferences["usage"]
-    )
+    score = engine.evaluate(user_preferences, product)
     results.append((product["name"], round(score, 2)))
 
 results.sort(key=lambda x: x[1], reverse=True)

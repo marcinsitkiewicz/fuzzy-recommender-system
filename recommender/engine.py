@@ -65,11 +65,25 @@ class FuzzyRecommenderEngine:
             )
         ]
 
-    def evaluate(self, budget: float, quality: float, usage: float) -> float:
-        self.simulator.input["user_budget"] = budget
-        self.simulator.input["user_quality"] = quality
-        self.simulator.input["user_usage"] = usage
+    def evaluate(self, user_prefs: dict, product: dict) -> float:
+        self.simulator.reset()
+        
+        price_match = 10 - abs(user_prefs["budget"] - product["price"])
+        quality_match = 10 - abs(user_prefs["quality"] - product["quality"])
+        usage_match = 10 - abs(user_prefs["usage"] - product["usage"])
+
+        # zabezpieczenie zakresu 0–10
+        price_match = max(0, price_match)
+        quality_match = max(0, quality_match)
+        usage_match = max(0, usage_match)
+
+        self.simulator.input["user_budget"] = price_match
+        self.simulator.input["user_quality"] = quality_match
+        self.simulator.input["user_usage"] = usage_match
 
         self.simulator.compute()
+
+        if "product_match" not in self.simulator.output:
+            return 0.0
 
         return float(self.simulator.output["product_match"])
